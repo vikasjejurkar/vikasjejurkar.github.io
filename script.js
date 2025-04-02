@@ -1,47 +1,53 @@
-// Handle Attendance Form
-const attendanceForm = document.getElementById('attendanceForm');
-const attendanceList = document.getElementById('attendanceList');
+// Google Apps Script URLs (Replace करा)
+const attendanceScriptURL =
+  "https://script.google.com/macros/s/AKfycbwtA7othm2pX4tKhUbp_Bo2UrAvQ2gGgTCSe81ZmoYXYW_cY4mjcz0r4snd5dQmLkXXKg/exec";
+const marksScriptURL =
+  "https://script.google.com/macros/s/AKfycbzKzsazc4Dg6GF_lX20FAUgyohmQTBddCweOTIsPD-_H7GWvjsAPzOLWttK9SzSIgI/exec";
 
-if (attendanceForm) {
-    attendanceForm.addEventListener('submit', function(event) {
-        event.preventDefault();  // Prevent page reload
+// Common function to submit data to Google Sheets
+function submitForm(form, scriptURL, list) {
+  const formData = new FormData(form);
 
-        const studentName = document.getElementById('studentName').value;
-        const attendanceDate = document.getElementById('attendanceDate').value;
-        const attendanceStatus = document.getElementById('attendanceStatus').value;
+  fetch(scriptURL, {
+    method: "POST",
+    body: formData,
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      alert("✅ Data Submitted Successfully!");
 
-        // Create list item for attendance
-        const listItem = document.createElement('li');
-        listItem.textContent = `${studentName} - ${attendanceDate} - ${attendanceStatus}`;
+      // Create a list item for records
+      const listItem = document.createElement("li");
+      const values = Array.from(formData.values()).join(" - ");
+      listItem.textContent = values;
 
-        // Append to the attendance list
-        attendanceList.appendChild(listItem);
-
-        // Clear the form fields
-        attendanceForm.reset();
+      list.appendChild(listItem);
+      form.reset();
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      alert("❌ Error submitting data.");
     });
 }
 
+// Handle Attendance Form
+const attendanceForm = document.getElementById("attendanceForm");
+const attendanceList = document.getElementById("attendanceList");
+
+if (attendanceForm) {
+  attendanceForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+    submitForm(attendanceForm, attendanceScriptURL, attendanceList);
+  });
+}
+
 // Handle Marks Form
-const marksForm = document.getElementById('marksForm');
-const marksList = document.getElementById('marksList');
+const marksForm = document.getElementById("marksForm");
+const marksList = document.getElementById("marksList");
 
 if (marksForm) {
-    marksForm.addEventListener('submit', function(event) {
-        event.preventDefault();  // Prevent page reload
-
-        const studentNameMarks = document.getElementById('studentNameMarks').value;
-        const subject = document.getElementById('subject').value;
-        const marksScore = document.getElementById('marksScore').value;
-
-        // Create list item for marks
-        const listItem = document.createElement('li');
-        listItem.textContent = `${studentNameMarks} - ${subject} - ${marksScore} Marks`;
-
-        // Append to the marks list
-        marksList.appendChild(listItem);
-
-        // Clear the form fields
-        marksForm.reset();
-    });
+  marksForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+    submitForm(marksForm, marksScriptURL, marksList);
+  });
 }
