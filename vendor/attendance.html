@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Attendance</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Attendance Management</h1>
+
+      <!-- Attendance Form -->
+      <form
+        id="attendanceForm"
+        action="https://script.google.com/macros/s/AKfycbwtA7othm2pX4tKhUbp_Bo2UrAvQ2gGgTCSe81ZmoYXYW_cY4mjcz0r4snd5dQmLkXXKg/exec"
+        method="post"
+      >
+        <label for="studentName">Student Name:</label>
+        <input name="studentName" type="text" id="studentName" required /><br />
+
+        <label for="attendanceDate">Date:</label>
+        <input
+          name="attendanceDate"
+          type="date"
+          id="attendanceDate"
+          required
+        /><br />
+
+        <label for="attendanceStatus">Status:</label>
+        <select
+          name="attendanceStatus"
+          id="attendanceStatus"
+          name="attendanceStatus"
+        >
+          <option value="Present">Present</option>
+          <option value="Absent">Absent</option></select
+        ><br />
+        <fieldset><button type="submit">Submit Attendance</button></fieldset>
+      </form>
+
+      <h3>Attendance Records</h3>
+      <ul id="attendanceList"></ul>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

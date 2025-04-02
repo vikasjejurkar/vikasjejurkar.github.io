@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Marks Management</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Marks Management</h1>
+
+      <!-- Marks Form -->
+      <form
+        id="marksForm"
+        action="https://script.google.com/macros/s/AKfycbzKzsazc4Dg6GF_lX20FAUgyohmQTBddCweOTIsPD-_H7GWvjsAPzOLWttK9SzSIgI/exec"
+        method="post"
+      >
+        <label for="studentNameMarks">Student Name:</label>
+        <input
+          type="text"
+          name="studentNameMarks"
+          id="studentNameMarks"
+          required
+        /><br />
+
+        <label for="subject">Subject:</label>
+        <input type="text" name="subject" id="subject" required /><br />
+
+        <label for="marksScore">Marks:</label>
+        <input type="number" name="marksScore" id="marksScore" required /><br />
+
+        <button type="submit">Submit Marks</button>
+      </form>
+
+      <h3>Marks Records</h3>
+      <ul id="marksList"></ul>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
